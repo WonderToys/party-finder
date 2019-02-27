@@ -1,0 +1,19 @@
+@import "overrides.scss";
+
+html, body, * {
+  margin: 0px;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+
+#window {
+  width: 320px;
+  height: 480px;
+  background: rgba(3, 20, 36, 1);
+  background: linear-gradient(135deg, rgba(3, 20, 36, 1) 0%, rgba(2, 11, 20, 1) 100%);
+  margin: 0 auto;
+
+  main {
+    position: relative;
+    height: 452px;
+  }
+}

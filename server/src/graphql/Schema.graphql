@@ -1,0 +1,7 @@
+# import { Party } from 'src/graphql/Party.graphql'
+# import { Game } from 'src/graphql/Game.graphql'
+
+type Query {
+  searchParties(gameName: String!): [Party]
+  searchGames(query: String): [Game]
+}

@@ -1,0 +1,13 @@
+$indigo: #30415D;
+$crimson: #CF6766;
+$light-blue: #8EAEBD;
+$ultramarine: #031424;
+
+$ultramarine-inverse: invert($ultramarine);
+
+:root {
+  --pf-indigo: $indigo;
+  --pf-crimson: $crimson;
+  --pf-light-light: $light-blue;
+  --pf-ultramarine: $ultramarine;
+}

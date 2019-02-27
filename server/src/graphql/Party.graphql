@@ -1,0 +1,11 @@
+# import { User } from 'User.graphql'
+
+type Party {
+  _id: String
+  name: String
+  description: String
+  gameId: Int
+  gameName: String
+  createdAt: String
+  members: [User]
+}

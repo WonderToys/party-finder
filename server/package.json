@@ -1,0 +1,29 @@
+{
+  "name": "party-finder-server",
+  "version": "0.1.0",
+  "description": "Server for party-finder app",
+  "main": "index.js",
+  "author": "Jason LaChapelle <jaylach@gmail.com>",
+  "license": "N/A",
+  "private": true,
+  "scripts": {
+    "start": "webpack -d && node dist/server.js"
+  },
+  "dependencies": {
+    "apollo-server-fastify": "^2.4.6",
+    "config": "^3.0.1",
+    "fastify": "^1.14.1",
+    "graphql": "^14.1.1",
+    "jsonwebtoken": "^8.5.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.4.14",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
+  },
+  "devDependencies": {
+    "graphql-import-loader": "^0.2.1",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "webpack-node-externals": "^1.7.2"
+  }
+}

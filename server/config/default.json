@@ -1,0 +1,16 @@
+{
+  "server": {
+    "rootUri": "",
+    "mongoUri": "",
+    "jwtSecret": ""
+  },
+  "api": {
+    "twitch": {
+      "clientId": ""
+    },
+    "discord": {
+      "clientId": "",
+      "clientSecret": ""
+    }
+  }
+}

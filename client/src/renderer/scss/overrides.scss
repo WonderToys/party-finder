@@ -1,0 +1,43 @@
+@import "variables.scss";
+
+$--color-primary: darken($light-blue, 15%);
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+// v-modal
+.v-modal {
+  background: #fff;
+} //- v-modal
+
+// el-dialog
+.el-dialog {
+  background: $ultramarine;
+  width: 296px !important;
+  margin-top: 40px !important;
+  
+  .el-dialog__title {
+    color: #fff;
+  }
+
+  .el-dialog__body {
+    padding: 20px;
+    padding-top: 10px;
+  }
+} //- el-dialog
+
+// -----
+//  Animations
+// -----
+.panes-enter-active, .panes-leave-active {
+  transition: opacity .25s;
+}
+.panes-enter, .panes-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.panes-leave-active, .panes-leave-to {
+  position: absolute;
+  left: 20px; right: 20px;
+}
+//- fade

@@ -1,0 +1,15 @@
+type GameImages {
+  large: String
+  medium: String
+  small: String
+  template: String
+}
+
+type Game {
+  _id: Int
+  name: String
+  popularity: Int
+  giantbomb_id: Int
+  box: GameImages
+  logo: GameImages
+}
