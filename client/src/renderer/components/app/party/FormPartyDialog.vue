@@ -5,56 +5,72 @@
              :modal="true"
              title="Form a party">
 
-    <!-- panels -->
-    <transition-group name="panes" mode="out-in">
-      <!-- pane0 -->
-      <div id="pane0" key="0" v-if="currentPane === 0">
-          <div class="el-form-item last is-required">
-            <el-select placeholder="Pick a game ..."
-                      size="small"
-                      v-model="selectedGame"
-                      :loading="findingGames"
-                      :remote-method="searchGames"
-                      filterable remote reserve-keyword>
-              <el-option v-for="option in gameList"
-                        :key="option.key"
-                        :label="option.name"
-                        :value="option.key" />
-            </el-select>
-          </div>
-      </div> <!-- /pane0 -->
 
-      <!-- pane1 -->
-      <div id="pane1" key="1" v-if="currentPane === 1">
-        <div class="el-form-item is-required">
-          <el-input type="text"
-                    v-model="partyInfo.gameSettings.ign"
-                    placeholder="What's your name/id/etc in game?"
-                    size="small" />
-        </div>
-          
-        <div class="el-form-item" :class="{ last: !shouldShowRankInput}">
-          <el-select id="gsSkillLevel"
+    <!-- pane0 -->
+    <div id="pane0" key="0" v-if="currentPane === 0">
+        <div class="el-form-item last is-required">
+          <el-select placeholder="* Pick a game ..."
                     size="small"
-                    v-model="partyInfo.gameSettings.skillLevel"
-                    placeholder="And your skill level?">
-            <el-option key="newbie" value="newbie" label="Newbie" />
-            <el-option key="bad" value="bad" label="Bad" />
-            <el-option key="decent" value="decent" label="Decent" />
-            <el-option key="good" value="good" label="Good" />
-            <el-option key="great" value="great" label="Great" />
-            <el-option key="expert" value="expert" label="Expert" />
+                    v-model="selectedGame"
+                    :loading="findingGames"
+                    :remote-method="searchGames"
+                    filterable remote reserve-keyword>
+            <el-option v-for="option in gameList"
+                      :key="option.key"
+                      :label="option.name"
+                      :value="option.key" />
           </el-select>
         </div>
+    </div> <!-- /pane0 -->
 
-        <div class="el-form-item last" v-if="shouldShowRankInput">
-          <el-input type="text"
-                    size="small"
-                    v-model="partyInfo.gameSettings.rank"
-                    placeholder="Also, your rank/rating/etc in game?" />
+    <!-- pane1 -->
+    <div id="pane1" key="1" v-if="currentPane === 1">
+      <div class="el-form-item is-required">
+        <el-input type="text"
+                  v-model="partyInfo.gameSettings.ign"
+                  placeholder="* What's your name/id/etc in game?"
+                  size="small" />
+      </div>
+        
+      <div class="el-form-item" :class="{ last: !shouldShowRankInput}">
+        <el-select id="gsSkillLevel"
+                  size="small"
+                  v-model="partyInfo.gameSettings.skillLevel"
+                  placeholder="* And your skill level?">
+          <el-option key="newbie" value="newbie" label="Newbie" />
+          <el-option key="bad" value="bad" label="Bad" />
+          <el-option key="decent" value="decent" label="Decent" />
+          <el-option key="good" value="good" label="Good" />
+          <el-option key="great" value="great" label="Great" />
+          <el-option key="expert" value="expert" label="Expert" />
+        </el-select>
+      </div>
+
+      <div class="el-form-item last" v-if="shouldShowRankInput">
+        <el-input type="text"
+                  size="small"
+                  v-model="partyInfo.gameSettings.rank"
+                  placeholder="Your rank/rating/etc in game?" />
+      </div>
+    </div> <!-- /pane1 -->
+
+    <!-- pane2 -->
+    <div id="pane2" key="2" v-if="currentPane === 2">
+      <div class="el-form-item">
+        <label class="el-form-item__label">How many more?</label>
+        <div class="el-form-item__content">
+          <el-input-number :min="1"
+                           v-model="partyInfo.numPlayers"
+                           size="mini" />
         </div>
-      </div> <!-- /pane1 -->
-    </transition-group> <!-- /panels -->
+      </div>
+
+      <div class="el-form-item">
+        <el-switch v-model="partyInfo.isCompetitive"
+                   active-text="Competitive play"
+                   inactive-text="Casual play" />
+      </div>
+    </div> <!-- /pane2 -->
 
     <!-- footer -->
     <span slot="footer" class="dialog-footer">
@@ -73,12 +89,22 @@
 
 <!-- style -->
 <style lang="scss">
+@import '../../../scss/variables.scss';
+
 #formPartyDialog {
   .el-select {
     width: 100%;
   }
 
-  button[disabled] {
+  label, .el-switch__label {
+    color: rgba(255, 255, 255, 0.6);
+
+    &.is-active {
+      color: lighten($indigo, 40%);
+    }
+  }
+
+  button[disabled], span.is-disabled {
     cursor: default;
   }
 
@@ -105,7 +131,17 @@ export default {
       findingGames: false,
       gameList: [],
       partyInfo: {
-        gameSettings: {}
+        gameId: null,
+        gameName: null,
+        numPlayers: 1,
+        allowAutoJoin: false,
+        skillLevel: null,
+        isCompetitive: false,
+        gameSettings: {
+          ign: null,
+          skillLevel: null,
+          rank: null
+        }
       }
     };
   }, //- data
@@ -144,6 +180,13 @@ export default {
     // pane validations
     validatePane0() {
       return this.partyInfo.gameId != null && this.partyInfo.gameName != null;
+    },
+    validatePane1() {
+      return (this.partyInfo.gameSettings.ign != null && this.partyInfo.gameSettings.ign.trim().length > 0) &&
+             (this.partyInfo.gameSettings.skillLevel != null && this.partyInfo.gameSettings.skillLevel.length > 0 );
+    },
+    validatePane2() {
+      return false;
     },
     //- pane validations
     
